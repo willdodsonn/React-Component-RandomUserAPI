@@ -1,26 +1,33 @@
 import React from "react";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
-const Home = () => {
-	return (
-		<div>
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
-};
+export default class FetchRandomUser extends React.Component {
+	state = {
+		loading: true,
+		person: null,
+	};
 
-export default Home;
+	async componentDidMount() {
+		const url = "https://api.randomuser.me/";
+		const response = await fetch(url);
+		const data = await response.json();
+		this.setState({ person: data.results[0], loading: false });
+		console.log(data);
+	}
+
+	render() {
+		return (
+			<div>
+				{this.state.loading || !this.state.person ? (
+					<div>loading...</div>
+				) : (
+					<div>
+						<div>{this.state.person.name.first}</div>
+					</div>
+				)}
+			</div>
+		);
+	}
+}
