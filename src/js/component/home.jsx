@@ -23,8 +23,11 @@ export default class FetchRandomUser extends React.Component {
 				{this.state.loading || !this.state.person ? (
 					<div>loading...</div>
 				) : (
-					<div>
+					<div className="margins">
+						<div>{this.state.person.name.title}</div>
 						<div>{this.state.person.name.first}</div>
+						<div>{this.state.person.name.last}</div>
+						<img src={this.state.person.picture.large} />
 					</div>
 				)}
 			</div>
